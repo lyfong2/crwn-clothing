@@ -2,13 +2,15 @@ import React from 'react';
 import './menu-item.style.scss';
 import { withRouter } from 'react-router-dom'; // hoc
 
-// 因為有withRouter這hoc, props可以直接使用history,
+// 因為有withRouter這hoc, props可以直接使用history, match和history是從withRouter包來的
 const MenuItem = ({ title, imageUrl, size, history, linkUrl, match}) => (
     <div className={`${size} menu-item`} onClick={() => history.push(`${match.url}${linkUrl}`)}> 
         <div 
-            className='background-image' style={{
-            backgroundImage: `url(${imageUrl})` 
-        }}/>
+            className='background-image' 
+            style={{
+                backgroundImage: `url(${imageUrl})` 
+            }}
+        />
         <div className='content'>
             <h1 className='title'>{title.toUpperCase()}</h1>
             <span className='subtitle'>SHOP NOW</span>
