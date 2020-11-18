@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
@@ -46,12 +46,21 @@ class App extends React.Component {
           {/* 設path='/' 就是設定首頁的初始頁面 */}
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route patch='/signin' component={SignInAndSignUpPage} />
+          <Route exact patch='/signin' 
+                  render={
+                    () => this.props.currentUser 
+                    ? (<Redirect to='/' />)
+                    : (<SignInAndSignUpPage/>)} 
+          />
         </Switch>
       </div>
     )
   }
 }
+
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+})
 
 
 const mapDispatchToProps = dispatch => ({
@@ -59,7 +68,7 @@ const mapDispatchToProps = dispatch => ({
 }) 
 
 // using the second argument to connect
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 
