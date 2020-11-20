@@ -34,14 +34,12 @@ const Header = ({ currentUser, hidden }) => (
                 )
             }
             <CartIcon/>
-        </div>
-        
+        </div>        
         {
             hidden 
             ? null 
             :<CartDropdown />
         }
-
     </div>
 );
 
